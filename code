@@ -1,0 +1,54 @@
+import random
+
+def start_game():
+    print("Welcome to Guess the Number!")
+    print("There are three levels of difficulty to choose from: Easy (1-10), Medium (1-100), and Hard (1-1000).\n")
+    print("And also, you can choose to play in 'Fun' mode(1-1000) where there is no maximum number of guesses.\n")
+    difficulty = input("Which level of difficulty would you like to play (Easy, Medium, Hard, or Fun): ").lower()
+    print("\n")
+    if difficulty == "easy":
+        number = random.randint(1, 10)
+        max_guesses = 4
+    elif difficulty == "medium":
+        number = random.randint(1, 100)
+        max_guesses = 5
+    elif difficulty == "hard":
+        number = random.randint(1, 1000)
+        max_guesses = 6
+    elif difficulty == "fun":
+        number = random.randint(1, 1000)
+        max_guesses = float('inf')
+    else:
+        print("Invalid difficulty selected. Please try again.")
+        start_game()
+
+    guesses = 0
+    while guesses < max_guesses:
+        guess = int(input("Guess the number: "))
+        if guess == number:
+            print(f"You won! The number was {number}.")
+            break
+        elif guess < number:
+            print("Too low, try again.\n")
+            guesses += 1
+        elif guess > number:
+            print("Too high, try again.\n")
+            guesses += 1
+    else:
+        if max_guesses != float('inf'):
+            print(f"You lost! The number was {number}.")
+
+    if max_guesses != float('inf'):
+        play_again = input("Would you like to play again (Yes or No)? ").lower()
+        if play_again == "yes":
+            start_game()
+        else:
+            print("Thank you for playing!.")
+    else:
+        play_again = input("Do you want to play again (Yes or No)? ").lower()
+        if play_again == "yes":
+            start_game()
+        else:
+            print("Thank you for playing!")
+
+start_game()
